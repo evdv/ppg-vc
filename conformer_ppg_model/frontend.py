@@ -6,6 +6,7 @@ from typing import Union
 import humanfriendly
 import numpy as np
 import torch
+# conda install torch-complex
 from torch_complex.tensor import ComplexTensor
 
 from .log_mel import LogMel
