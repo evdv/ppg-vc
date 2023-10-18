@@ -126,7 +126,9 @@ class BiRnnPpg2MelModel(torch.nn.Module):
         x = self.reduce_proj(x)
 
         if ppg_lengths is not None:
-            x = torch.nn.utils.rnn.pack_padded_sequence(x, ppg_lengths,
+            # 'lengths' argument should be a 1D CPU int64 tensor, but got 1D cuda:0 Long tensor
+            # solution: cast lengths to cpu
+            x = torch.nn.utils.rnn.pack_padded_sequence(x, ppg_lengths.cpu(),
                                                        batch_first=True,
                                                        enforce_sorted=False)
         x, _ = self.rnn(x)
