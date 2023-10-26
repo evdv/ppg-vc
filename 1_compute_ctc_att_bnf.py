@@ -14,7 +14,7 @@ from tqdm import tqdm
 from conformer_ppg_model.build_ppg_model import load_ppg_model
 
 
-SAMPLE_RATE=22000
+SAMPLE_RATE=22050
 
 
 def compute_bnf(
