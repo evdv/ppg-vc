@@ -181,7 +181,7 @@ bpemodel: null
 non_linguistic_symbols: null
 frontend: default
 frontend_conf:
-    fs: 22000
+    fs: 22050
     hop_length: 256
     win_length: 1024
 specaug: specaug
