@@ -14,7 +14,7 @@ from tqdm import tqdm
 from conformer_ppg_model.build_ppg_model import load_ppg_model
 
 
-SAMPLE_RATE=22050
+SAMPLE_RATE=22050  # 16000 for ESD, 22050 for ADEPT
 
 
 def compute_bnf(
@@ -41,8 +41,11 @@ def compute_bnf(
         wav_tensor = torch.from_numpy(audio).float().to(device).unsqueeze(0)
         wav_length = torch.LongTensor([audio.shape[0]]).to(device)
         with torch.no_grad():
-            bnf = ppg_model_local(wav_tensor, wav_length) 
-            # bnf = torch.nn.functional.softmax(asr_model.ctc.ctc_lo(bnf), dim=2)
+            try:
+                bnf = ppg_model_local(wav_tensor, wav_length)
+                # bnf = torch.nn.functional.softmax(asr_model.ctc.ctc_lo(bnf), dim=2)
+            except RuntimeError:
+                print(f'ISSUE WITH {wav_file}')
         bnf_npy = bnf.squeeze(0).cpu().numpy()
         fid = os.path.basename(wav_file).split(".")[0]
         bnf_fname = f"{output_dir}/{fid}.ling_feat.npy"

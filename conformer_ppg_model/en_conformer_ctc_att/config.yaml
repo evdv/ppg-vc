@@ -180,10 +180,11 @@ token_type: phn
 bpemodel: null
 non_linguistic_symbols: null
 frontend: default
+# change this for ESD (16kHz)
 frontend_conf:
-    fs: 22050
-    hop_length: 256
-    win_length: 1024
+    fs: 22050  # 16000  | 22050
+    hop_length: 256  # 186  | 256
+    win_length: 1024  # 743 | 1024
 specaug: specaug
 specaug_conf:
     apply_time_warp: true
